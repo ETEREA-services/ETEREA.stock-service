@@ -1,0 +1,1 @@
+# ETEREA.stock-service
