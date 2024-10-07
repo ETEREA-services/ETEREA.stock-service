@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name = "articulo-service/api/core/articulo")
+@FeignClient(name = "core-service/api/core/articulo")
 public interface ArticuloClient {
 
     @GetMapping("/")
@@ -21,4 +21,8 @@ public interface ArticuloClient {
 
     @GetMapping("/autonumerico/{autonumerico}")
     ArticuloDto findByAutonumerico(@PathVariable Long autonumerico);
+
+    @GetMapping("/mascaraBalanza/{mascaraBalanza}")
+    ArticuloDto findByMascaraBalanza(@PathVariable String mascaraBalanza);
+
 }
