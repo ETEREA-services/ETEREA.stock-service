@@ -4,12 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import eterea.stock.service.client.ArticuloBarraClient;
 import eterea.stock.service.client.ArticuloClient;
+import eterea.stock.service.client.ArticuloFechaClient;
 import eterea.stock.service.model.dto.ArticuloStockDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.OffsetDateTime;
 
 @Service
 @Slf4j
@@ -17,13 +19,15 @@ public class StockArticuloService {
 
     private final ArticuloClient articuloClient;
     private final ArticuloBarraClient articuloBarraClient;
+    private final ArticuloFechaClient articuloFechaClient;
 
-    public StockArticuloService(ArticuloClient articuloClient, ArticuloBarraClient articuloBarraClient) {
+    public StockArticuloService(ArticuloClient articuloClient, ArticuloBarraClient articuloBarraClient, ArticuloFechaClient articuloFechaClient) {
         this.articuloClient = articuloClient;
         this.articuloBarraClient = articuloBarraClient;
+        this.articuloFechaClient = articuloFechaClient;
     }
 
-    public ArticuloStockDto getStockArticulo(String codigo) {
+    public ArticuloStockDto getStockArticulo(String codigo, OffsetDateTime fecha) {
 
         log.debug("Trying Articulo Nativo -> {}", codigo);
         try {
@@ -34,9 +38,17 @@ public class StockArticuloService {
             } catch (JsonProcessingException e) {
                 log.debug("Articulo Nativo -> {}", e.getMessage());
             }
+            var precio = articulo.getPrecioVentaConIva();
+            try {
+                precio = articuloFechaClient.getByUnique(articulo.getArticuloId(), fecha).getPrecioUsd();
+            } catch (Exception e) {
+                log.debug("Sin ArticuloFecha");
+            }
             return ArticuloStockDto.builder()
                     .articulo(articulo)
                     .cantidad(BigDecimal.ZERO)
+                    .fecha(fecha)
+                    .precio(precio)
                     .build();
         } catch (Exception e) {
             log.debug("Código no corresponde a Artículo");
@@ -51,9 +63,17 @@ public class StockArticuloService {
             } catch (JsonProcessingException e) {
                 log.debug("Articulo de Barras -> {}", e.getMessage());
             }
+            var precio = articuloBarra.getArticulo().getPrecioVentaConIva();
+            try {
+                precio = articuloFechaClient.getByUnique(articuloBarra.getArticulo().getArticuloId(), fecha).getPrecioArs();
+            } catch (Exception e) {
+                log.debug("Sin ArticuloFecha");
+            }
             return ArticuloStockDto.builder()
                     .articulo(articuloBarra.getArticulo())
                     .cantidad(BigDecimal.ZERO)
+                    .fecha(fecha)
+                    .precio(precio)
                     .build();
         } catch (Exception e) {
             log.debug("Código no corresponde a Artículo de Barras");
@@ -71,17 +91,35 @@ public class StockArticuloService {
                 var articuloId = Integer.parseInt(codigoPropCodigo);
                 BigDecimal peso = new BigDecimal(codigoPropPeso).divide(new BigDecimal(1000), RoundingMode.HALF_UP);
                 try {
+                    var articulo = articuloClient.findByArticuloId(articuloId + "");
+                    var precio = articulo.getPrecioVentaConIva();
+                    try {
+                        precio = articuloFechaClient.getByUnique(articulo.getArticuloId(), fecha).getPrecioArs();
+                    } catch (Exception e) {
+                        log.debug("Sin ArticuloFecha");
+                    }
                     return ArticuloStockDto.builder()
-                            .articulo(articuloClient.findByArticuloId(articuloId + ""))
+                            .articulo(articulo)
                             .cantidad(peso)
+                            .fecha(fecha)
+                            .precio(precio)
                             .build();
                 } catch (Exception e) {
                     log.debug("Código no comienza con 25");
                 }
                 try {
+                    var articulo = articuloClient.findByMascaraBalanza(codigoPropCodigo);
+                    var precio = articulo.getPrecioVentaConIva();
+                    try {
+                        precio = articuloFechaClient.getByUnique(articulo.getArticuloId(), fecha).getPrecioArs();
+                    } catch (Exception e) {
+                        log.debug("Sin ArticuloFecha");
+                    }
                     return ArticuloStockDto.builder()
-                            .articulo(articuloClient.findByMascaraBalanza(codigoPropCodigo))
+                            .articulo(articulo)
                             .cantidad(peso)
+                            .fecha(fecha)
+                            .precio(precio)
                             .build();
                 } catch (Exception e) {
                     log.debug("Código no entra por máscara de balanza");
@@ -92,6 +130,8 @@ public class StockArticuloService {
             if (!(codigoPropInicial.equals("20") || codigoPropInicial.equals("23"))) {
                 return ArticuloStockDto.builder()
                         .cantidad(BigDecimal.ZERO)
+                        .fecha(fecha)
+                        .precio(BigDecimal.ZERO)
                         .build();
             }
 
@@ -103,9 +143,18 @@ public class StockArticuloService {
                 if (codigoPropInicial.equals("20")) {
                     peso = new BigDecimal(codigoPropPeso).divide(new BigDecimal(1000), RoundingMode.HALF_UP);
                 }
+                var articulo = articuloBarraClient.findByCodigoBarras(codigoPropCodigo).getArticulo();
+                var precio = articulo.getPrecioVentaConIva();
+                try {
+                    precio = articuloFechaClient.getByUnique(articulo.getArticuloId(), fecha).getPrecioArs();
+                } catch (Exception e) {
+                    log.debug("Sin ArticuloFecha");
+                }
                 return ArticuloStockDto.builder()
-                        .articulo(articuloBarraClient.findByCodigoBarras(codigoPropCodigo).getArticulo())
+                        .articulo(articulo)
                         .cantidad(peso)
+                        .fecha(fecha)
+                        .precio(precio)
                         .build();
             } catch (Exception e) {
                 log.debug("Código no entra por carnes de mi campo");
@@ -114,8 +163,9 @@ public class StockArticuloService {
 
         return ArticuloStockDto.builder()
                 .cantidad(BigDecimal.ZERO)
+                .fecha(fecha)
+                .precio(BigDecimal.ZERO)
                 .build();
-
     }
 
 }
