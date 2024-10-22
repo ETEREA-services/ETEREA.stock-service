@@ -26,7 +26,8 @@ public class StockArticuloController {
     }
 
     @GetMapping("/getarticulo/{codigo}/{fecha}")
-    public ResponseEntity<ArticuloStockDto> getStockArticulo(@PathVariable String codigo, @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fecha) {
+    public ResponseEntity<ArticuloStockDto> getStockArticulo(@PathVariable String codigo,
+                                                             @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fecha) {
         var stockArticulo = service.getStockArticulo(codigo, fecha);
         try {
             log.debug("StockArticulo -> {}", JsonMapper.builder().findAndAddModules().build().writerWithDefaultPrettyPrinter().writeValueAsString(stockArticulo));
