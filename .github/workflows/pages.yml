@@ -1,0 +1,87 @@
+name: Despliegue de Documentación API
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Actualización automática diaria
+  workflow_dispatch:      # Actualización manual disponible
+  push:
+    branches: [ "main" ]  # Despliegue en cambios de main
+  issues:
+    types: [opened, closed, edited, deleted]
+  milestone:
+    types: [created, closed, edited, deleted]
+
+# Corregimos la sintaxis de los permisos
+permissions:
+  contents: write    # Permisos para gestión de repositorio
+  pages: write      # Permisos para GitHub Pages
+  id-token: write   # Permisos para autenticación
+  issues: read      # Permisos para lectura de issues
+  pull-requests: write  # Permisos para gestión de PRs
+  repository-projects: write
+  actions: read     # Permisos para ejecución de acciones
+  deployments: write    # Permisos para despliegues
+  statuses: write   # Permisos para actualización de estados
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inicializar Repositorio
+        uses: actions/checkout@v4
+      
+      - name: Configurar Entorno Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Instalar Dependencias Python
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyGithub markdown2 jinja2 requests
+
+      - name: Obtener Documentación API
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/fetch_github_data.py
+
+      - name: Generar Documentación API
+        run: |
+          python scripts/generate_docs.py
+
+      - name: Generar Wiki Técnica
+        env:
+          GITHUB_TOKEN: ${{ secrets.WIKI_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          python scripts/generate_wiki.py
+      
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v4
+        
+      - name: Construir Documentación con Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./docs
+          destination: ./_site
+      
+      - name: Subir Artefacto de Documentación
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+      
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Desplegar Documentación en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4 
