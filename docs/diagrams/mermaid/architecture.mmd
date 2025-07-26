@@ -1,0 +1,13 @@
+flowchart TD
+    subgraph ETEREA.stock-service
+        Controller[API REST Controller]
+        Service[Service Layer]
+        Client[Feign Clients]
+        Model[DTOs y Modelos]
+        Util[Utilidades]
+    end
+    Controller --> Service
+    Service --> Client
+    Service --> Model
+    Service --> Util
+    Client -->|REST| ExternalServices[(Servicios Externos)]

@@ -1,23 +1,23 @@
 app:
   port: ${APP_PORT:8080}
-  eureka: 8761
   logging: debug
+  consul:
+    host: consul-service
+    port: 8500
 
 server:
   port: ${app.port}
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://eureka:@eureka-service:${app.eureka}/eureka
-
 spring:
   application:
     name: stock-service
+  cloud:
+    consul:
+      host: ${app.consul.host}
+      port: ${app.consul.port}
+      discovery:
+        prefer-ip-address: true
+        tags: eterea,stock
 
 logging:
   level:
@@ -25,3 +25,8 @@ logging:
     web: ${app.logging}
     org:
       springframework.cloud.config: ${app.logging}
+
+management:
+  health:
+    mail:
+      enabled: false

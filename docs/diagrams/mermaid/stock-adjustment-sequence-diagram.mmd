@@ -1,0 +1,13 @@
+sequenceDiagram
+    participant C as AjustesController
+    participant S as AjustesService
+    participant AC as ArticuloClient
+    participant EC as EmpresaClient
+    participant SC as StockClient
+    participant D as DTOs
+    C->>S: upload(fileInfo, ...)
+    S->>AC: findByArticuloId()
+    S->>EC: findTop()
+    S->>SC: addMovimiento()
+    S->>D: Construye RubroDto, ArticuloAjusteDto, StockMovimientoDto, ArticuloMovimientoDto
+    S-->>C: StockResponseDto

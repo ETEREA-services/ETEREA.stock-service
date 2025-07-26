@@ -1,0 +1,8 @@
+flowchart TD
+    StockService[ETEREA.stock-service]
+    Consul[(Consul Service Discovery)]
+    FeignClients[Feign Clients]
+    ExternalAPIs[(APIs Externas)]
+    StockService --> Consul
+    StockService --> FeignClients
+    FeignClients --> ExternalAPIs

@@ -1,0 +1,11 @@
+flowchart TD
+    Controller[Controller]
+    Service[Service]
+    Client[Feign Client]
+    Model[Model/DTO]
+    Util[Util]
+    Controller --> Service
+    Service --> Client
+    Service --> Model
+    Service --> Util
+    Client -->|REST| ExternalServices[(Servicios Externos)]
