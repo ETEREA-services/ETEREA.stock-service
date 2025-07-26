@@ -1,0 +1,34 @@
+classDiagram
+    class StockMovimientoDto {
+        +Long stockMovimientoId
+        +Integer comprobanteId
+        +... // otros campos
+    }
+    class ArticuloMovimientoDto {
+        +Integer centroStockId
+        +String articuloId
+        +... // otros campos
+    }
+    class RubroDto {
+        +String nombre
+        +List~ArticuloAjusteDto~ articulos
+    }
+    class ArticuloAjusteDto {
+        +String articuloId
+        +String descripcion
+        +BigDecimal inventario
+        +BigDecimal stock
+        +BigDecimal diferencia
+    }
+    class StockAndArticulosDto {
+        +StockMovimientoDto stockMovimiento
+        +List~ArticuloMovimientoDto~ articuloMovimientos
+    }
+    class StockResponseDto {
+        +StockMovimientoDto stockMovimiento
+        +String response
+    }
+    RubroDto --> ArticuloAjusteDto
+    StockAndArticulosDto --> StockMovimientoDto
+    StockAndArticulosDto --> ArticuloMovimientoDto
+    StockResponseDto --> StockMovimientoDto

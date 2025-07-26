@@ -1,0 +1,18 @@
+flowchart TD
+    AjustesController["AjustesController"]
+    AjustesService["AjustesService"]
+    ArticuloClient["ArticuloClient"]
+    EmpresaClient["EmpresaClient"]
+    StockClient["StockClient"]
+    RubroDto["RubroDto"]
+    ArticuloAjusteDto["ArticuloAjusteDto"]
+    StockMovimientoDto["StockMovimientoDto"]
+    ArticuloMovimientoDto["ArticuloMovimientoDto"]
+    AjustesController -->|upload| AjustesService
+    AjustesService --> ArticuloClient
+    AjustesService --> EmpresaClient
+    AjustesService --> StockClient
+    AjustesService --> RubroDto
+    RubroDto --> ArticuloAjusteDto
+    AjustesService --> StockMovimientoDto
+    AjustesService --> ArticuloMovimientoDto
