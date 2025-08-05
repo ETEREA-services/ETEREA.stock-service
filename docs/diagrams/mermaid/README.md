@@ -7,6 +7,6 @@ Este directorio contiene todos los diagramas Mermaid generados automáticamente 
 - `architecture.mmd`: Diagrama de arquitectura general del servicio.
 - `ajuste-stock-flow.mmd`: Flujo de proceso para el caso de uso de ajuste de stock.
 - `stock-adjustment-class-diagram.mmd`: Diagrama de clases UML simplificado para el ajuste de stock.
-- `dto-classes.mmd`: Diagrama de clases de los principales DTOs y relaciones.
+- `dto-classes.mmd`: Diagrama de clases de los principales DTOs y relaciones. **Actualizado para versión 0.3.0**
 - `stock-adjustment-sequence-diagram.mmd`: Diagrama de secuencia para el flujo de ajuste de stock.
-- `dependencies.mmd`: Diagrama de dependencias externas (Consul, Feign, APIs externas).
+- `dependencies.mmd`: Diagrama de dependencias externas (Consul v3.5.4, Feign, APIs externas).

@@ -1,14 +1,7 @@
-## [0.2.0] - 2025-07-26
- feat: Migración de Eureka a Consul para el descubrimiento de servicios.
- feat: Nuevos servicios y DTOs para gestión avanzada de stock, inventario y ajustes.
- fix(test): Deshabilitado Consul en pruebas unitarias.
- chore: Eliminado el Maven Wrapper y scripts de automatización Python para simplificar la estructura del proyecto.
- chore: Mejoras en la integración con SonarCloud y Jacoco para cobertura de código.
-
- feat(deps): actualización de dependencias y mejoras en documentación
- feat: Agregado de importación de ajuste de stock
- feat: Fecha added to get articulo
- feat: Adding Stock Service
- feat: Carga Inventario Added
- feat: Inventario Turno Added
-- feat: Inventario Turno Added
+## [0.3.0] - 2025-08-05
+- feat: Nuevos DTOs y servicios para gestión avanzada de stock, inventario y ajustes (EmpresaDto, InventarioDto, InventarioTurnoDto, StockContextDto, StockMovimientoDto, ArticuloAjusteDto, ArticuloStockDto, RubroDto, StockAndArticulosDto, StockResponseDto).
+- feat: Servicios de contexto y lógica de negocio para stock e inventario (StockArticuloService, StockContextService, AjustesService, ControlInventarioService).
+- feat: Utilidad para manejo de archivos y transferencia (`Tool`, `FileInfo`).
+- chore: Actualización de Spring Boot Starter Parent a 3.5.4.
+- chore: Actualización de documentación automática y diagramas.
+- fix: Mejoras en la integración con SonarCloud y Jacoco.
