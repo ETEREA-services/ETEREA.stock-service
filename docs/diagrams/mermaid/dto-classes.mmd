@@ -13,13 +13,27 @@ classDiagram
         +String nombre
         +List~ArticuloAjusteDto~ articulos
     }
-    class ArticuloAjusteDto {
-        +String articuloId
-        +String descripcion
-        +BigDecimal inventario
-        +BigDecimal stock
-        +BigDecimal diferencia
-    }
+    class EmpresaDto
+    class InventarioDto
+    class InventarioTurnoDto
+    class StockContextDto
+    class StockMovimientoDto
+    class ArticuloAjusteDto
+    class ArticuloStockDto
+    class RubroDto
+    class StockAndArticulosDto
+    class StockResponseDto
+
+    StockContextDto "1" --> "many" CentroStockDto
+    StockContextDto "1" --> "many" InventarioTurnoDto
+    StockAndArticulosDto "1" --> "1" StockMovimientoDto
+    StockAndArticulosDto "1" --> "many" ArticuloMovimientoDto
+    StockResponseDto "1" --> "1" StockMovimientoDto
+    RubroDto "1" --> "many" ArticuloAjusteDto
+    InventarioDto "1" --> "1" InventarioTurnoDto
+    InventarioDto "1" --> "1" CentroStockDto
+    InventarioDto "1" --> "1" ArticuloDto
+    ArticuloStockDto "1" --> "1" ArticuloDto
     class StockAndArticulosDto {
         +StockMovimientoDto stockMovimiento
         +List~ArticuloMovimientoDto~ articuloMovimientos
