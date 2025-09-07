@@ -1,14 +1,19 @@
 package eterea.stock.service.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import eterea.stock.service.util.Jsonifier;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StockMovimientoDto {
 
     private Long stockMovimientoId;
@@ -46,5 +51,9 @@ public class StockMovimientoDto {
     private Byte facturaProveedor = 0;
     private BigDecimal netoFactura = BigDecimal.ZERO;
     private BigDecimal netoRegistrado = BigDecimal.ZERO;
+
+    public String jsonify() {
+        return Jsonifier.builder(this).build();
+    }
 
 }

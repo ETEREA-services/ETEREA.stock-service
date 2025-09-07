@@ -13,6 +13,7 @@ import java.util.Base64;
 public class Tool {
 
     public static File writeFile(FileInfo fileinfo) {
+        log.debug("Processing Tool.writeFile");
         // Reescribe archivo
         String filename = fileinfo.getFilename();
         filename = filename.replace('\\', '/');
