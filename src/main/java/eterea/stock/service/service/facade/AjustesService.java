@@ -40,6 +40,7 @@ public class AjustesService {
     }
 
     public StockResponseDto upload(FileInfo fileInfo, Integer centroStockId, Integer comprobanteId, OffsetDateTime fechaRegistro) {
+        log.debug("Processing AjustesService.upload");
         String response = "";
         File file = Tool.writeFile(fileInfo);
         List<RubroDto> rubros = new ArrayList<>();
@@ -62,11 +63,7 @@ public class AjustesService {
                                 .nombre(currentRubroName)
                                 .articulos(articulos)
                                 .build();
-                        try {
-                            log.debug("Rubro Leido -> {}", JsonMapper.builder().findAndAddModules().build().writerWithDefaultPrettyPrinter().writeValueAsString(rubro));
-                        } catch (JsonProcessingException e) {
-                            log.debug("Rubro Leido -> null {}", e.getMessage());
-                        }
+                        log.debug("Rubro Leído -> {}", rubro.jsonify());
                         rubros.add(rubro);
                         articulos = new ArrayList<>();
                     }
@@ -97,11 +94,7 @@ public class AjustesService {
                                     .stock(stock)
                                     .diferencia(diferencia)
                                     .build();
-                            try {
-                                log.debug("Articulo Ajuste Leido -> {}", JsonMapper.builder().findAndAddModules().build().writerWithDefaultPrettyPrinter().writeValueAsString(articuloAjuste));
-                            } catch (JsonProcessingException e) {
-                                log.debug("Articulo Ajuste Leido -> null {}", e.getMessage());
-                            }
+                            log.debug("Articulo Ajuste Leido -> {}", articuloAjuste.jsonify());
                             articulos.add(articuloAjuste);
                         }
                     }
@@ -114,11 +107,7 @@ public class AjustesService {
                         .nombre(currentRubroName)
                         .articulos(articulos)
                         .build();
-                try {
-                    log.debug("Rubro Leido -> {}", JsonMapper.builder().findAndAddModules().build().writerWithDefaultPrettyPrinter().writeValueAsString(rubro));
-                } catch (JsonProcessingException e) {
-                    log.debug("Rubro Leido -> null {}", e.getMessage());
-                }
+                log.debug("Rubro Leido -> {}", rubro.jsonify());
                 rubros.add(rubro);
             }
 
@@ -209,13 +198,13 @@ public class AjustesService {
                 .build();
 
         stockMovimiento = stockClient.addMovimiento(stockAndArticulos);
-        logStockMovimiento(stockMovimiento);
+        log.debug("Stock movimiento: {}", stockMovimiento.jsonify());
 
         var stockResponse = StockResponseDto.builder()
                 .stockMovimiento(stockMovimiento)
                 .response(response)
                 .build();
-        logStockResponse(stockResponse);
+        log.debug("Stock response: {}", stockResponse.jsonify());
 
         return stockResponse;
 
@@ -238,32 +227,6 @@ public class AjustesService {
                 }
             default:
                 return BigDecimal.ZERO;
-        }
-    }
-
-    private void logStockMovimiento(StockMovimientoDto stockMovimiento) {
-        try {
-            log.debug("StockMovimiento -> {}", JsonMapper
-                    .builder()
-                    .findAndAddModules()
-                    .build()
-                    .writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(stockMovimiento));
-        } catch (JsonProcessingException e) {
-            log.debug("StockMovimiento jsonify error -> {}", e.getMessage());
-        }
-    }
-
-    private void logStockResponse(StockResponseDto stockResponse) {
-        try {
-            log.debug("StockResponse -> {}", JsonMapper
-                    .builder()
-                    .findAndAddModules()
-                    .build()
-                    .writerWithDefaultPrettyPrinter()
-                    .writeValueAsString(stockResponse));
-        } catch (JsonProcessingException e) {
-            log.debug("StockResponse jsonify error -> {}", e.getMessage());
         }
     }
 

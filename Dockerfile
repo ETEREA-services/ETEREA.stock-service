@@ -27,11 +27,17 @@ RUN apk update && apk add curl
 # Creamos un usuario y grupo no privilegiados por seguridad
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
+# Instalar curl en la imagen final
+RUN apk update && apk add curl
+
 # Establecemos el directorio de trabajo
 WORKDIR /app
 
 # Copiamos el JAR generado desde la etapa de compilación
 COPY --from=build /app/target/eterea.stock-service.jar ./eterea.stock-service.jar
+
+# Damos permisos al usuario sobre el directorio de la aplicación
+RUN chown -R appuser:appgroup /app
 
 # Cambiamos al usuario no privilegiado
 USER appuser

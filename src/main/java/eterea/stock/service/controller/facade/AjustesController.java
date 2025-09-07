@@ -27,7 +27,7 @@ public class AjustesController {
                                                    @PathVariable Integer comprobanteId,
                                                    @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime fechaRegistro) {
         try {
-            return new ResponseEntity<>(service.upload(fileInfo, centroStockId, comprobanteId, fechaRegistro), HttpStatus.OK);
+            return ResponseEntity.ok(service.upload(fileInfo, centroStockId, comprobanteId, fechaRegistro));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
