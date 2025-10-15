@@ -3,6 +3,7 @@ package eterea.stock.service.controller.facade;
 import eterea.stock.service.model.dto.StockResponseDto;
 import eterea.stock.service.service.facade.AjustesService;
 import eterea.stock.service.util.transfer.FileInfo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,13 +14,10 @@ import java.time.OffsetDateTime;
 
 @RestController
 @RequestMapping("/api/stock/ajustes")
+@RequiredArgsConstructor
 public class AjustesController {
 
     private final AjustesService service;
-
-    public AjustesController(AjustesService service) {
-        this.service = service;
-    }
 
     @PostMapping("/upload/{centroStockId}/{comprobanteId}/{fechaRegistro}")
     public ResponseEntity<StockResponseDto> upload(@RequestBody FileInfo fileInfo,
