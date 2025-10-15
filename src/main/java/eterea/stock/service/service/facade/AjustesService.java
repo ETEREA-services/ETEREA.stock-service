@@ -10,6 +10,7 @@ import eterea.stock.service.model.StockMovimientoDto;
 import eterea.stock.service.model.dto.*;
 import eterea.stock.service.util.Tool;
 import eterea.stock.service.util.transfer.FileInfo;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -25,19 +26,12 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class AjustesService {
 
     private final ArticuloClient articuloClient;
     private final EmpresaClient empresaClient;
     private final StockClient stockClient;
-
-    public AjustesService(ArticuloClient articuloClient,
-                          EmpresaClient empresaClient,
-                          StockClient stockClient) {
-        this.articuloClient = articuloClient;
-        this.empresaClient = empresaClient;
-        this.stockClient = stockClient;
-    }
 
     public StockResponseDto upload(FileInfo fileInfo, Integer centroStockId, Integer comprobanteId, OffsetDateTime fechaRegistro) {
         log.debug("Processing AjustesService.upload");

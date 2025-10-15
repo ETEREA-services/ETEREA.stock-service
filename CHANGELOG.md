@@ -1,3 +1,7 @@
+## [0.4.2] - 2025-10-15
+- chore: Actualización de JDK de 24 a 25 en pom.xml, Dockerfile y workflow de CI
+- refactor: Mejora de controladores y servicios usando @RequiredArgsConstructor de Lombok (eliminación de constructores manuales en AjustesController y AjustesService)
+
 ## [0.4.1] - 2025-09-21
 - chore: Actualización de dependencias:
   - Spring Boot Starter Parent a 3.5.6
