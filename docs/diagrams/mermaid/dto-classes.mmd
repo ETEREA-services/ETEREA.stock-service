@@ -9,6 +9,35 @@ classDiagram
         +String articuloId
         +... // otros campos
     }
+    class ArticuloDto {
+        +String articuloId
+        +String descripcion
+        +BigDecimal precioVentaSinIva
+        +BigDecimal precioVentaConIva
+        +Long numeroCuentaVentas
+        +Long numeroCuentaCompras
+        +Long numeroCuentaGastos
+        +Integer centroStockId
+        +Long rubroId
+        +Long subRubroId
+        +... // otros campos
+        +String jsonify()
+    }
+    class ArticuloBarraDto {
+        +Long articuloBarraId
+        +String codigoBarras
+        +String articuloId
+        +ArticuloDto articulo
+        +String jsonify()
+    }
+    class ArticuloStockDto {
+        +ArticuloDto articulo
+        +String codigo
+        +String descripcion
+        +OffsetDateTime fecha
+        +BigDecimal precio
+        +String jsonify()
+    }
     class RubroDto {
         +String nombre
         +List~ArticuloAjusteDto~ articulos
@@ -17,10 +46,7 @@ classDiagram
     class InventarioDto
     class InventarioTurnoDto
     class StockContextDto
-    class StockMovimientoDto
     class ArticuloAjusteDto
-    class ArticuloStockDto
-    class RubroDto
     class StockAndArticulosDto
     class StockResponseDto
 
@@ -34,6 +60,7 @@ classDiagram
     InventarioDto "1" --> "1" CentroStockDto
     InventarioDto "1" --> "1" ArticuloDto
     ArticuloStockDto "1" --> "1" ArticuloDto
+    ArticuloBarraDto "1" --> "1" ArticuloDto
     class StockAndArticulosDto {
         +StockMovimientoDto stockMovimiento
         +List~ArticuloMovimientoDto~ articuloMovimientos

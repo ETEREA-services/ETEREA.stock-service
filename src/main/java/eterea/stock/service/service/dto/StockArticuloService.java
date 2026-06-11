@@ -6,6 +6,7 @@ import eterea.stock.service.client.ArticuloBarraClient;
 import eterea.stock.service.client.ArticuloClient;
 import eterea.stock.service.client.ArticuloFechaClient;
 import eterea.stock.service.model.dto.ArticuloStockDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -15,17 +16,12 @@ import java.time.OffsetDateTime;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class StockArticuloService {
 
     private final ArticuloClient articuloClient;
     private final ArticuloBarraClient articuloBarraClient;
     private final ArticuloFechaClient articuloFechaClient;
-
-    public StockArticuloService(ArticuloClient articuloClient, ArticuloBarraClient articuloBarraClient, ArticuloFechaClient articuloFechaClient) {
-        this.articuloClient = articuloClient;
-        this.articuloBarraClient = articuloBarraClient;
-        this.articuloFechaClient = articuloFechaClient;
-    }
 
     public ArticuloStockDto getStockArticulo(String codigo, OffsetDateTime fecha) {
 
@@ -33,11 +29,7 @@ public class StockArticuloService {
         try {
             // Verifica si el código enviado es nativo
             var articulo = articuloClient.findByArticuloId(codigo);
-            try {
-                log.debug("Articulo Nativo -> {}", JsonMapper.builder().findAndAddModules().build().writerWithDefaultPrettyPrinter().writeValueAsString(articulo));
-            } catch (JsonProcessingException e) {
-                log.debug("Articulo Nativo -> {}", e.getMessage());
-            }
+            log.debug("Articulo Nativo -> {}", articulo.jsonify());
             var precio = articulo.getPrecioVentaConIva();
             try {
                 precio = articuloFechaClient.getByUnique(articulo.getArticuloId(), fecha).getPrecioUsd();
@@ -54,15 +46,11 @@ public class StockArticuloService {
             log.debug("Código no corresponde a Artículo");
         }
 
-        log.debug("Trying Código Barras Completo -> {}", codigo);
+        log.debug("\n\nTrying Código Barras Completo -> {}\n\n", codigo);
         try {
             // Verifica si es un código de barras completo
             var articuloBarra = articuloBarraClient.findByCodigoBarras(codigo);
-            try {
-                log.debug("Articulo de Barras -> {}", JsonMapper.builder().findAndAddModules().build().writerWithDefaultPrettyPrinter().writeValueAsString(articuloBarra));
-            } catch (JsonProcessingException e) {
-                log.debug("Articulo de Barras -> {}", e.getMessage());
-            }
+            log.debug("\n\nArticulo de Barras -> {}\n\n", articuloBarra.jsonify());
             var precio = articuloBarra.getArticulo().getPrecioVentaConIva();
             try {
                 precio = articuloFechaClient.getByUnique(articuloBarra.getArticulo().getArticuloId(), fecha).getPrecioArs();
@@ -76,7 +64,7 @@ public class StockArticuloService {
                     .precio(precio)
                     .build();
         } catch (Exception e) {
-            log.debug("Código no corresponde a Artículo de Barras");
+            log.debug("\n\nCódigo no corresponde a Artículo de Barras -> {}\n\n", e.getMessage());
         }
 
         // Verifica si es un código de barras de Carnes de mi campo

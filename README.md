@@ -2,10 +2,10 @@
 
 [![ETEREA.stock-service CI](https://github.com/ETEREA-services/ETEREA.stock-service/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/ETEREA-services/ETEREA.stock-service/actions/workflows/maven.yml)
 [![Java Version](https://img.shields.io/badge/Java-25-blue.svg)](https://www.oracle.com/java/technologies/downloads/)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5.6-green.svg)](https://spring.io/projects/spring-boot)
-[![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2025.0.0-blue.svg)](https://spring.io/projects/spring-cloud)
-[![SpringDoc OpenAPI](https://img.shields.io/badge/SpringDoc%20OpenAPI-2.8.10-blue.svg)](https://springdoc.org/)
-[![Version](https://img.shields.io/badge/Version-0.4.2-blue.svg)](https://github.com/ETEREA-services/ETEREA.stock-service/releases/tag/v0.4.2)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.6-green.svg)](https://spring.io/projects/spring-boot)
+[![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2025.1.0-blue.svg)](https://spring.io/projects/spring-cloud)
+[![SpringDoc OpenAPI](https://img.shields.io/badge/SpringDoc%20OpenAPI-3.0.2-blue.svg)](https://springdoc.org/)
+[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/ETEREA-services/ETEREA.stock-service/releases/tag/v1.0.0)
 
 ## Descripción
 
@@ -20,13 +20,14 @@ El Servicio de Gestión de Stock es un componente esencial del sistema ETEREA qu
 ## Tecnologías Principales
 
 - **Java 25**: Lenguaje de programación principal
-- **Spring Boot 3.5.6**: Framework de desarrollo
-- **Spring Cloud 2025.0.0**: Microservicios y cloud
-- **SpringDoc OpenAPI 2.8.10**: Documentación de API
-- **Apache POI 5.4.1**: Procesamiento de archivos Excel
+- **Spring Boot 4.0.6**: Framework de desarrollo
+- **Spring Cloud 2025.1.0**: Microservicios y cloud
+- **SpringDoc OpenAPI 3.0.2**: Documentación de API
+- **Apache POI 5.5.1**: Procesamiento de archivos Excel
 - **Lombok**: Reducción de código boilerplate
 - **Caffeine**: Caché de alto rendimiento
 - **Spring Validation**: Validación de datos
+- **Commons FileUpload 1.6.0**: Carga de archivos
 
 ## Documentación
 
