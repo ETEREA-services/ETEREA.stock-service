@@ -1,10 +1,15 @@
 package eterea.stock.service.model;
 
-import lombok.Data;
+import eterea.stock.service.util.Jsonifier;
+import lombok.*;
 
 import java.math.BigDecimal;
 
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ArticuloDto {
 
     private String articuloId;
@@ -13,9 +18,9 @@ public class ArticuloDto {
     private String leyendaVoucher;
     private BigDecimal precioVentaSinIva;
     private BigDecimal precioVentaConIva;
-    private Long cuentaVentas;
-    private Long cuentaCompras;
-    private Long cuentaGastos;
+    private Long numeroCuentaVentas;
+    private Long numeroCuentaCompras;
+    private Long numeroCuentaGastos;
     private Integer centroStockId;
     private Long rubroId;
     private Long subRubroId;
@@ -43,4 +48,7 @@ public class ArticuloDto {
     private Integer prestadorId;
     private Long autoNumericoId;
 
+    public String jsonify() {
+        return Jsonifier.builder(this).build();
+    }
 }

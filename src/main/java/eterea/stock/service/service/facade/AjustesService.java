@@ -156,7 +156,7 @@ public class AjustesService {
                             .centroStockId(centroStockId)
                             .articuloId(articuloAjuste.getArticuloId())
                             .cantidad(articuloAjuste.getDiferencia())
-                            .numeroCuenta(articulo.getCuentaCompras() == null ? 0L : articulo.getCuentaCompras())
+                            .numeroCuenta(articulo.getNumeroCuentaCompras() == null ? 0L : articulo.getNumeroCuentaCompras())
                             .precioCompra(articulo.getPrecioCompra())
                             .fechaMovimiento(stockMovimiento.getFechaRegistro())
                             .centroStockId(stockMovimiento.getCentroStockIdDesde())

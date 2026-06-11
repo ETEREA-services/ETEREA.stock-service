@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import eterea.stock.service.client.InventarioClient;
 import eterea.stock.service.model.InventarioDto;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -11,13 +12,10 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class ControlInventarioService {
 
     private final InventarioClient inventarioClient;
-
-    public ControlInventarioService(InventarioClient inventarioClient) {
-        this.inventarioClient = inventarioClient;
-    }
 
     public List<InventarioDto> addControlInventario(List<InventarioDto> inventarios) {
         try {

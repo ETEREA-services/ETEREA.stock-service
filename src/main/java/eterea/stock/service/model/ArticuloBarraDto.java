@@ -1,8 +1,13 @@
 package eterea.stock.service.model;
 
-import lombok.Data;
+import eterea.stock.service.util.Jsonifier;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ArticuloBarraDto {
 
     private Long articuloBarraId = null;
@@ -10,4 +15,7 @@ public class ArticuloBarraDto {
     private String articuloId = null;
     private ArticuloDto articulo = null;
 
+    public String jsonify() {
+        return Jsonifier.builder(this).build();
+    }
 }
