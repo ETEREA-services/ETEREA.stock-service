@@ -46,9 +46,20 @@ classDiagram
     class InventarioDto
     class InventarioTurnoDto
     class StockContextDto
+    class CentroStockDto {
+        +Integer centroStockId
+        +String nombre
+    }
     class ArticuloAjusteDto
     class StockAndArticulosDto
     class StockResponseDto
+    class ArticuloFechaDto {
+        +Long articuloFechaId
+        +String articuloId
+        +String fecha
+        +BigDecimal precioUsd
+        +BigDecimal precioArs
+    }
 
     StockContextDto "1" --> "many" CentroStockDto
     StockContextDto "1" --> "many" InventarioTurnoDto
@@ -61,15 +72,3 @@ classDiagram
     InventarioDto "1" --> "1" ArticuloDto
     ArticuloStockDto "1" --> "1" ArticuloDto
     ArticuloBarraDto "1" --> "1" ArticuloDto
-    class StockAndArticulosDto {
-        +StockMovimientoDto stockMovimiento
-        +List~ArticuloMovimientoDto~ articuloMovimientos
-    }
-    class StockResponseDto {
-        +StockMovimientoDto stockMovimiento
-        +String response
-    }
-    RubroDto --> ArticuloAjusteDto
-    StockAndArticulosDto --> StockMovimientoDto
-    StockAndArticulosDto --> ArticuloMovimientoDto
-    StockResponseDto --> StockMovimientoDto

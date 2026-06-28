@@ -1,3 +1,10 @@
+## [1.0.1] - 2026-06-28
+- fix: Corregido patrón de serialización de fechas ISO 8601 (`Z` → `XX`) para compatibilidad con zonas horarias en `ArticuloFechaDto`, `ArticuloMovimientoDto`, `InventarioDto`, `StockMovimientoDto` y `ArticuloStockDto`
+- chore(deps): Actualización de dependencias:
+  - Spring Boot Starter Parent 4.0.6 → 4.1.0
+  - Spring Cloud 2025.1.0 → 2025.1.2
+  - SpringDoc OpenAPI 3.0.2 → 3.0.3
+
 ## [1.0.0] - 2026-06-10
 - chore: Actualización masiva de dependencias:
   - Spring Boot Starter Parent 3.5.6 → 4.0.6

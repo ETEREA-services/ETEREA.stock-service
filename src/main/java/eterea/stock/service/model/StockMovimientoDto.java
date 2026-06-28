@@ -25,12 +25,12 @@ public class StockMovimientoDto {
     private Integer negocioIdHasta;
     private Integer centroStockIdHasta;
     private String centroStockIdHastaNombre = "";
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXX", timezone = "UTC")
     private OffsetDateTime fechaRegistro;
     private Long proveedorId;
     private Long clienteId;
     private Long legajo;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXX", timezone = "UTC")
     private OffsetDateTime fechaComprobante;
     private Integer comprobanteIdFactura;
     private Integer prefijoFactura;
@@ -41,7 +41,7 @@ public class StockMovimientoDto {
     private Long cierreCajaId;
     private Long cierreRestaurantId;
     private Integer nivel = 0;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXX", timezone = "UTC")
     private OffsetDateTime fechaContable;
     private Integer ordenContable;
     private Integer negocioIdOtro;

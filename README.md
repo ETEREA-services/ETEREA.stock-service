@@ -2,10 +2,10 @@
 
 [![ETEREA.stock-service CI](https://github.com/ETEREA-services/ETEREA.stock-service/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/ETEREA-services/ETEREA.stock-service/actions/workflows/maven.yml)
 [![Java Version](https://img.shields.io/badge/Java-25-blue.svg)](https://www.oracle.com/java/technologies/downloads/)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.6-green.svg)](https://spring.io/projects/spring-boot)
-[![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2025.1.0-blue.svg)](https://spring.io/projects/spring-cloud)
-[![SpringDoc OpenAPI](https://img.shields.io/badge/SpringDoc%20OpenAPI-3.0.2-blue.svg)](https://springdoc.org/)
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue.svg)](https://github.com/ETEREA-services/ETEREA.stock-service/releases/tag/v1.0.0)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.0-green.svg)](https://spring.io/projects/spring-boot)
+[![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-2025.1.2-blue.svg)](https://spring.io/projects/spring-cloud)
+[![SpringDoc OpenAPI](https://img.shields.io/badge/SpringDoc%20OpenAPI-3.0.3-blue.svg)](https://springdoc.org/)
+[![Version](https://img.shields.io/badge/Version-1.0.1-blue.svg)](https://github.com/ETEREA-services/ETEREA.stock-service/releases/tag/v1.0.1)
 
 ## Descripción
 
@@ -20,9 +20,9 @@ El Servicio de Gestión de Stock es un componente esencial del sistema ETEREA qu
 ## Tecnologías Principales
 
 - **Java 25**: Lenguaje de programación principal
-- **Spring Boot 4.0.6**: Framework de desarrollo
-- **Spring Cloud 2025.1.0**: Microservicios y cloud
-- **SpringDoc OpenAPI 3.0.2**: Documentación de API
+- **Spring Boot 4.1.0**: Framework de desarrollo
+- **Spring Cloud 2025.1.2**: Microservicios y cloud
+- **SpringDoc OpenAPI 3.0.3**: Documentación de API
 - **Apache POI 5.5.1**: Procesamiento de archivos Excel
 - **Lombok**: Reducción de código boilerplate
 - **Caffeine**: Caché de alto rendimiento
